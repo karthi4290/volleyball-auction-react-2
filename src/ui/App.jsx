@@ -41,7 +41,7 @@ function reducer(state, action) {
       };
     }
     case "RESET_ALL":
-      fetch("http://localhost:4000/api/reset", { method: "POST" });
+      fetch("https://backend-4r0o.onrender.com/api/reset", { method: "POST" });
       return {
         ...state,
         teams: [],
@@ -187,7 +187,7 @@ function useNodeState() {
 
   // Load state from Node.js backend on mount
   useEffect(() => {
-    fetch("http://localhost:4000/api/data")
+    fetch("https://backend-4r0o.onrender.com/api/data")
       .then((res) => res.json())
       .then((saved) => {
         if (saved && (saved.teams?.length || saved.players?.length)) {
@@ -204,7 +204,7 @@ function useNodeState() {
   useEffect(() => {
     if (!loaded) return; // Don't save until loaded
     if (state.teams.length === 0 && state.players.length === 0) return; // Don't save empty state
-    fetch("http://localhost:4000/api/data", {
+    fetch("https://backend-4r0o.onrender.com/api/data", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
