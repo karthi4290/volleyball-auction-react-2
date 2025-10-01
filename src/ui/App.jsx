@@ -126,6 +126,43 @@ function reducer(state, action) {
         ...state,
         auction: { ...state.auction, currentId: action.payload, active: true },
       };
+    case "PLAYER_MOVE_UP": {
+      const { playerId } = action.payload;
+      const players = [...state.players];
+      // Find all players in the same pool, preserving order
+      const pool = players.find((p) => p.id === playerId)?.pool;
+      const poolPlayers = players.filter((p) => p.pool === pool);
+      const poolIdx = poolPlayers.findIndex((p) => p.id === playerId);
+      if (poolIdx > 0) {
+        // Get global indexes
+        const prevId = poolPlayers[poolIdx - 1].id;
+        const prevIdx = players.findIndex((p) => p.id === prevId);
+        const currIdx = players.findIndex((p) => p.id === playerId);
+        // Swap in global array
+        [players[prevIdx], players[currIdx]] = [
+          players[currIdx],
+          players[prevIdx],
+        ];
+      }
+      return { ...state, players };
+    }
+    case "PLAYER_MOVE_DOWN": {
+      const { playerId } = action.payload;
+      const players = [...state.players];
+      const pool = players.find((p) => p.id === playerId)?.pool;
+      const poolPlayers = players.filter((p) => p.pool === pool);
+      const poolIdx = poolPlayers.findIndex((p) => p.id === playerId);
+      if (poolIdx < poolPlayers.length - 1) {
+        const nextId = poolPlayers[poolIdx + 1].id;
+        const nextIdx = players.findIndex((p) => p.id === nextId);
+        const currIdx = players.findIndex((p) => p.id === playerId);
+        [players[nextIdx], players[currIdx]] = [
+          players[currIdx],
+          players[nextIdx],
+        ];
+      }
+      return { ...state, players };
+    }
     case "PLAYER_SOLD": {
       const { playerId, teamId, price } = action.payload;
       const players = state.players.map((p) =>
