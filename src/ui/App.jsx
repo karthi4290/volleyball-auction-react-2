@@ -288,20 +288,8 @@ export default function App() {
                   textShadow: "0 4px 12px #6366f1, 0 1px 0 #0ea5e9",
                 }}
               >
-                VolleyBall Auction
+                MSVL Auction 2025
               </h1>
-              <p
-                style={{
-                  fontWeight: "600",
-                  color: "#fff",
-                  fontSize: 16,
-                  margin: "8px 0 0 0",
-                  letterSpacing: 0.5,
-                  textShadow: "0 1px 8px #6366f1",
-                }}
-              >
-                Plan your roster, run the bidding, track remaining budgets.
-              </p>
             </div>
           </div>
 
